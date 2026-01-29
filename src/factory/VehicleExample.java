@@ -26,7 +26,7 @@ class VehicleFactory {
 
 public class VehicleExample {
     public static void main(String[] args) {
-        Vehicle v1 = VehicleFactory.create("car");
+        Vehicle v1 = VehicleFactory.create("car");  //create is a static method i.e it is called on the class itself not on an instance of the class
         v1.drive();
 
         Vehicle v2 = VehicleFactory.create("bike");
