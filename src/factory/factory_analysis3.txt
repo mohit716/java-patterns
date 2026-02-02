@@ -1,0 +1,31 @@
+FACTORY PATTERN — WHAT WE NEED TO KNOW
+=====================================
+
+1. WHAT IT IS
+   One place (the factory) decides which concrete object to create.
+   The client asks: "give me an Animal of type X" — it never does new Dog() or new Cat().
+
+2. CONSTANT vs VARIABLE
+   Without factory: the client has a fixed (constant) choice in code.
+      Animal a = new Dog();   // always Dog — fixed in source
+
+   With factory: the client passes a variable; the actual class varies at runtime.
+      Animal a = AnimalFactory.create(type);   // type = "dog", "cat", from config, etc.
+
+   So we move from "constant" (fixed at write-time) to "variable" (decided at runtime).
+
+3. PRINCIPLES IT FOLLOWS
+   - SRP: Creation logic lives in one place; clients only use objects.
+   - OCP: Add new types by changing the factory; clients stay unchanged.
+   - DIP: Clients depend on the interface (Animal) and the factory, not on Dog/Cat.
+   - DRY: No duplicated "which class to create" logic in every client.
+
+4. WHEN IT CLICKS
+   You add a new type (e.g. Bird) and only change one class (the factory), not every place that creates animals.
+
+5. MINIMAL CODE
+   Without:  Client does if (dog) new Dog(); else if (cat) new Cat(); in many files.
+   With:     Client does AnimalFactory.create(type); everywhere. Factory has the if/else once.
+
+6. ONE-LINE TAKEAWAY
+   Don't call new Dog() / new Cat() everywhere; ask one place (the factory) for "an animal of type X" and use what it returns.
