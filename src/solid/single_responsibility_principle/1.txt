@@ -1,0 +1,8 @@
+SOLID — S = Single Responsibility Principle (SRP)
+
+A class (or module) should have only one reason to change.
+In other words: one job, one responsibility.
+
+Example of violation: A class that both saves a report to a file AND sends it by email AND validates the data. If file format, email API, or validation rules change, the same class changes for three different reasons.
+
+Example of SRP: Separate classes — ReportValidator, ReportFileWriter, ReportEmailSender. Each has one reason to change.
