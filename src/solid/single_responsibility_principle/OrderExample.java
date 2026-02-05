@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 // ---------------------------------------------------------------------------
 // SRP Example 2: Order processing — each class has one job.
 // ---------------------------------------------------------------------------
-
+// class Order's responsibility is to store the order details
 class Order {
     private final String id;
     private final String customerId;
@@ -27,7 +27,9 @@ class Order {
     public double getTotal() { return total; }
     public int getItemCount() { return itemCount; }
 }
-
+// class OrderValidator's responsibility is to validate the order 
+// the getters we set above were useful to get the values of the variables in the order class to OrderValidator class
+// and validate the order based on the business rules
 /** One job: validate order (business rules). Changes only when validation rules change. */
 class OrderValidator {
     public boolean isValid(Order order) {
@@ -39,7 +41,8 @@ class OrderValidator {
         return true;
     }
 }
-
+// class OrderStorage's responsibility is to persist the order to a file
+// files.writeString is used to write the order details to a file that can be found in the project directory
 /** One job: persist order. Changes only when storage (file/DB) changes. */
 class OrderStorage {
     public void save(Order order) throws IOException {
