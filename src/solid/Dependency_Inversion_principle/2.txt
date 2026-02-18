@@ -1,0 +1,40 @@
+SOLID — DIP: Another example
+
+Idea: Same as 1.txt — depend on an interface; pass the real implementation from outside.
+
+---
+
+Example: Sending a message
+
+BAD (depends on concrete class):
+
+    class AlertService {
+        EmailSender sender = new EmailSender();   // stuck with email only
+        void alert(String msg) { sender.send(msg); }
+    }
+    // To send by SMS instead, you must change AlertService.
+
+---
+
+GOOD (depends on abstraction):
+
+    interface MessageSender { void send(String msg); }
+
+    class EmailSender implements MessageSender {
+        public void send(String msg) { /* send email */ }
+    }
+    class SmsSender implements MessageSender {
+        public void send(String msg) { /* send SMS */ }
+    }
+
+    class AlertService {
+        MessageSender sender;
+        AlertService(MessageSender sender) { this.sender = sender; }
+        void alert(String msg) { sender.send(msg); }
+    }
+    // new AlertService(new EmailSender()) or new AlertService(new SmsSender())
+    // AlertService never says "new EmailSender()". You choose from outside.
+
+---
+
+One line: AlertService depends on MessageSender (interface), not EmailSender (concrete). Pass the sender in; swap email/SMS without touching AlertService.

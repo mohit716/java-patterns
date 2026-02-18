@@ -1,0 +1,32 @@
+SOLID — D = Dependency Inversion Principle (DIP)
+
+Simple idea: Your code should depend on an "interface" (a contract), not on a specific implementation. Then you can swap the implementation without changing your code.
+
+---
+
+BAD (depends on concrete class):
+
+    class Lamp {
+        Bulb b = new RedBulb();   // stuck with RedBulb forever
+        void turnOn() { b.light(); }
+    }
+    // To use BlueBulb instead, you must change Lamp.
+
+---
+
+GOOD (depends on abstraction):
+
+    interface Bulb { void light(); }
+    class RedBulb implements Bulb { public void light() { ... } }
+    class BlueBulb implements Bulb { public void light() { ... } }
+
+    class Lamp {
+        Bulb b;
+        Lamp(Bulb b) { this.b = b; }   // anyone can pass RedBulb or BlueBulb
+        void turnOn() { b.light(); }
+    }
+    // Lamp never says "new RedBulb()". You pass the bulb from outside. Swap anytime.
+
+---
+
+One line: Depend on the interface (Bulb), not the concrete class (RedBulb). Pass the implementation in; don't create it inside.
