@@ -1,0 +1,34 @@
+Dependency Inversion Principle — "Wrapped ball" analogy
+========================================================
+
+Raw ball vs wrapped ball
+------------------------
+• Raw ball = a concrete class (e.g. EmailSender, SmsSender, MySQLDatabase).
+  Your code would hold this one thing directly.
+
+• Wrapped ball = your code doesn't hold the raw ball. It holds whatever fits
+  the "wrap" — the interface/abstraction.
+
+• The wrap = the interface (the "ability" or contract). It only says WHAT can
+  be done (e.g. send a message, save data), not HOW or which implementation.
+
+• "Set to anything based on class passed" = dependency injection. Someone
+  (e.g. main, a factory) gives you an implementation that implements that
+  interface. So you might get EmailSender today and SmsSender tomorrow; your
+  code still only knows the wrap (the interface).
+
+So:
+  - You depend on the WRAP (interface), not on a specific RAW BALL (concrete class).
+  - Different "balls" (implementations) can be put inside the same wrap;
+    your code doesn't change.
+
+In short: depend on abstractions (the wrap), not on concretions (the raw ball).
+
+
+Tied to our code (DIPExample.java)
+----------------------------------
+• Wrap     = MessageSender (interface: void send(String msg))
+• Raw balls = EmailSender, SmsSender (concrete classes that implement MessageSender)
+• AlertService only holds a MessageSender (the wrap). It never says "I need
+  an EmailSender" — so we can pass EmailSender or SmsSender (or any future
+  sender) from outside. That's DIP + dependency injection.
