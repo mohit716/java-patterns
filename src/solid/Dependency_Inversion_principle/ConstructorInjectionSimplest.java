@@ -43,9 +43,24 @@ class Greeter {
 // so we can create like this: Greeter g = new Greeter(new ConsolePrinter()); g.say("Hello");
 // this class will use the printer to print the message 
 // so when g is created, the printer is passed in and it is used to print the message
+// during creation time its decided which implementation of the interface to use
 public class ConstructorInjectionSimplest {
     public static void main(String[] args) {
         Greeter g = new Greeter(new ConsolePrinter());
         g.say("Hello");
     }
 }
+
+/*
+Greeter uses Printer
+It has a field of type Printer and calls printer.print(msg) in say().
+It does not use a concrete class directly
+The field is Printer printer, not ConsolePrinter printer. Greeter never does new ConsolePrinter() (or any other concrete class).
+So it can be any implementation of Printer
+Whoever creates the Greeter decides which implementation to pass in:
+new Greeter(new ConsolePrinter()) → prints to console
+new Greeter(new FilePrinter(...)) → would print to file (if you add that class)
+new Greeter(new MockPrinter()) → useful in tests
+Greeter only depends on the interface Printer, so it stays decoupled from any specific implementation. That’s the dependency inversion: depend on the abstraction (interface), not on concrete classes.
+
+*/
