@@ -97,3 +97,14 @@ Configurable part: configuration just decides which implementation to inject
 So: configuration supports DIP, but configuration alone isn’t automatically 
 DIP unless you also introduce the interface/abstraction + injection.
 */
+
+/*
+Notification manageger is the object creater
+
+and uses the interface in a way 
+
+that any concrete implementation can be passed to it
+
+kind of support for plug and play
+
+*/
